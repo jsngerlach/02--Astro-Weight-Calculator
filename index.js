@@ -14,6 +14,11 @@ var planets = [
 
 //1. How to dynamically generate the select element
 
+function roundToDecimal(num,dec) {
+      var rounded = (Math.round(num * Math.pow(10,dec)) / Math.pow(10,dec));
+      return rounded;
+    }
+
 for (var i = 0; i < planets.length; i++) {
     var planet = planets[i];
 
@@ -41,14 +46,23 @@ for (var i = 0; i < planets.length; i++) {
         var planetName = selectedOption.text;
         var planetValue = selectedOption.value;
 
-        var userWeightOnPlanet = weight * planetValue;
+        var userWeightOnPlanet = roundToDecimal(weight * planetValue, 3);
 
         var message = 'If you were on the celestial object called ' + planetName + ', you would weigh ' + userWeightOnPlanet + 'lbs. of MUSCLE, STEEL and/or SEX APPEAL!';
 
+        var messageError = 'Numbers Only!';
+
         var output = document.getElementById('output');
 
-        // Assign the message to the output element we just fetched from the DOM
-        output.innerHTML = message;
+       
+
+        if (isNaN(weight) || weight==''){
+            output.innerHTML = messageError;
+        }else{
+            output.innerHTML = message;
+        }
+
+        
     }
 
 
